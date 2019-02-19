@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SkiApiServer.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20190219103709_InitialCreate")]
+    [Migration("20190219105852_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
