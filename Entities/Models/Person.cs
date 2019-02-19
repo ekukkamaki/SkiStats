@@ -10,5 +10,6 @@ namespace Entities.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
+        public ICollection<Round> Rounds { get; set; }
     }
 }

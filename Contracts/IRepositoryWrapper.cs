@@ -8,5 +8,6 @@ namespace Contracts
     {
         IRoundRepository Round { get; }
         IPersonRepository Person { get; }
+        ILocationRepository Location { get; }
     }
 }

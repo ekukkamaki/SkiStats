@@ -10,8 +10,10 @@ namespace Repository
     {
         private IRoundRepository _roundRepository;
         private IPersonRepository _personRepository;
-        private RepositoryContext _repoContext;
+        private ILocationRepository _locationRepository;
+        private readonly RepositoryContext _repoContext;
         
+
 
         public IRoundRepository Round
         {
@@ -36,6 +38,19 @@ namespace Repository
                 }
 
                 return _personRepository;
+            }
+        }
+
+        public ILocationRepository Location
+        {
+            get
+            {
+                if (_locationRepository == null)
+                {
+                    _locationRepository = new LocationRepository(_repoContext);
+                }
+
+                return _locationRepository;
             }
         }
 

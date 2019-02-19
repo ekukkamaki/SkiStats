@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using Contracts;
+using Entities;
+using Entities.Enumerations;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,22 +44,33 @@ namespace SkiApiServer.Controllers
             }
         }
 
+        public class RoundArgs : Round
+        {
+            [IgnoreDataMember]
+            public Guid PersonId { get; set; }
+            [IgnoreDataMember]
+            public Guid LocationId { get; set; }
+        }
+
         [HttpPost]
-        public IActionResult AddRound([FromBody] Round round)
+        public IActionResult AddRound([FromBody] RoundArgs round)
         {
             try
             {
+
                 if (!ModelState.IsValid)
                 {
                     return BadRequest("Invalid object");
                 }
                 
-                round.Person = _repository.Person.GetById(round.Person.Id);
+                round.Person = _repository.Person.GetById(round.PersonId);
                 if (round.Person == null)
                     return NotFound("Person not found");
 
-                _repository.Round.CreateRound(round);
+                round.Location = _repository.Location.GetById(round.LocationId);
 
+                _repository.Round.CreateRound(round);
+                
                 return CreatedAtRoute("getByRoundId", new { id = round.Id }, round);
             }
             catch (Exception e)

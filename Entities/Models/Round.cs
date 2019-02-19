@@ -23,5 +23,10 @@ namespace Entities.Models
         [EnumDataType(typeof(Style))]
         [Required(ErrorMessage = "Skistyle required. Insert 0 if not known.")]
         public int SkiStyle { get; set; }
+        public string Notes { get; set; }
+        public Location Location { get; set; }
+        public DateTime ActionTime { get; set; }
+
+        public ICollection<PartialRound> PartialRounds { get; set; }
     }
 }

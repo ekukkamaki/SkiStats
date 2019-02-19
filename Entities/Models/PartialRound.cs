@@ -10,8 +10,8 @@ namespace Entities.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public Location Location { get; set; }
         public Round Round { get; set; }
+        public long Length { get; set; }
         public TimeSpan Duration { get; set; }
     }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Contracts;
+﻿using Contracts;
 using Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +22,11 @@ namespace SkiApiServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RepositoryContext>(opt => opt.UseInMemoryDatabase("SkiStatistics"));
+            services.AddDbContext<RepositoryContext>(c =>
+            {
+                c.UseSqlServer(Configuration["ConnectionStrings:skiStat"], b => b.MigrationsAssembly("SkiApiServer"));
+            });
+            //services.AddDbContext<RepositoryContext>(opt => opt.UseInMemoryDatabase("SkiStatistics"));
 
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
