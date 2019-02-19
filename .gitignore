@@ -1,6 +1,7 @@
 /SkiApiServer/obj
 /SkiApiServer/bin
 /Contracts/obj
+*.cache
 /Contracts/bin
 /Entities/obj
 /Entities/bin
