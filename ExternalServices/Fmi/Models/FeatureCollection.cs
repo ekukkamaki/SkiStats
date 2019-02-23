@@ -6,6 +6,6 @@ namespace ExternalServices.Fmi.Models
 {
     public class FeatureCollection
     {
-
+        
     }
 }

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Net.Http;
 using System.Runtime.Serialization;
 using Contracts;
 using Entities;
 using Entities.Enumerations;
 using Entities.Models;
+using ExternalServices.Fmi;
+using ExternalServices.Fmi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SkiApiServer.Controllers
@@ -13,10 +16,12 @@ namespace SkiApiServer.Controllers
     public class RoundController : ControllerBase
     {
         private readonly IRepositoryWrapper _repository;
+        private readonly FmiService _fmiService;
 
-        public RoundController(IRepositoryWrapper repo)
+        public RoundController(IRepositoryWrapper repo, FmiService fmiService)
         {
             _repository = repo;
+            _fmiService = fmiService;
         }
         [HttpGet]
         public IActionResult GetRounds()
@@ -77,6 +82,12 @@ namespace SkiApiServer.Controllers
             {
                 return StatusCode(500, "Internal server error");
             }
+        }
+
+        [HttpGet("test")]
+        public IActionResult GetFeature()
+        {
+            return Ok(new FeatureRepository(_fmiService).GetFeatures());
         }
     }
 }

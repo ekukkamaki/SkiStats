@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities;
+using ExternalServices.Fmi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,7 @@ namespace SkiApiServer
 
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddHttpClient<FmiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

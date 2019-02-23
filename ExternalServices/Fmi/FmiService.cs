@@ -30,7 +30,7 @@ namespace ExternalServices.Fmi
         {
             semaphore = new Semaphore(8, 8);
 
-            client.BaseAddress = new Uri("https://");
+            client.BaseAddress = new Uri("http://opendata.fmi.fi");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
 
             //client.DefaultRequestHeaders.Add("Accept",
@@ -51,7 +51,7 @@ namespace ExternalServices.Fmi
 
             try
             {
-                response = await Client.GetAsync(url).ConfigureAwait(false);
+                response = await Client.GetAsync(new Uri(Client.BaseAddress + url)).ConfigureAwait(false);
                 result = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
             finally
