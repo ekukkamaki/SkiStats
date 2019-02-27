@@ -68,16 +68,11 @@ namespace ExternalServices.Fmi
                 Console.WriteLine(e);
                 throw new ApplicationException(result);
             }
-
-            using (MemoryStream stream = new MemoryStream(StringToUTF8ByteArray(result)))
-            using (new XmlTextWriter(stream, new UTF8Encoding(false)))
+            
+            using (var stringreader = new StringReader(result))
             {
-                return (T)new XmlSerializer(typeof(T)).Deserialize(stream);
+                return (T)new XmlSerializer(typeof(T)).Deserialize(stringreader);
             }
-        }
-        private byte[] StringToUTF8ByteArray(string xml)
-        {
-            return new UTF8Encoding().GetBytes(xml);
         }
     }
 }

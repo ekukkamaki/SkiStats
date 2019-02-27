@@ -84,10 +84,18 @@ namespace SkiApiServer.Controllers
             }
         }
 
-        [HttpGet("test")]
-        public IActionResult GetFeature()
+        public class WeatherApiRequest
         {
-            return Ok(new FeatureRepository(_fmiService).GetFeatures());
+            public string city { get; set; }
+            public DateTime startTime { get; set; }
+            public DateTime endTime { get; set; }
+        }
+
+        [HttpGet("test")]
+        public IActionResult GetFeature([FromQuery] WeatherApiRequest req)
+        {
+            var features = new FeatureRepository(_fmiService).GetSnowDepthAndTemperature(req.city,req.startTime,req.endTime);
+            return Ok(features);
         }
     }
 }
