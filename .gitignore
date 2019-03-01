@@ -10,3 +10,7 @@
 /.vs
 /ExternalServices/bin
 /ExternalServices/obj
+/identityServer/obj
+/identityServer/bin
+*.csproj.user
+*.Development.json
