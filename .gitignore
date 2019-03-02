@@ -11,3 +11,7 @@
 /ExternalServices/bin
 /ExternalServices/obj
 /.vscode
+/identityServer/obj
+/identityServer/bin
+*.csproj.user
+*.Development.json

@@ -7,11 +7,13 @@ using Entities.Enumerations;
 using Entities.Models;
 using ExternalServices.Fmi;
 using ExternalServices.Fmi.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SkiApiServer.Controllers
 {
     [Route("api/round")]
+    [Authorize]
     [ApiController]
     public class RoundController : ControllerBase
     {
