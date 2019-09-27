@@ -16,18 +16,19 @@ namespace excelLoader
     {
       var roundRepository = new Repository.RoundRepository(context);
       var personRepository = new Repository.PersonRepository(context);
+      var locationRepository = new Repository.LocationRepository(context);
 
       // do nothing if current person exists 
       if (personRepository.FindByCondition(s => s.Name == person.Name).ToList().Count > 0)
         return;
+
+      var allSavedLocations = locationRepository.FindAll().ToList();
 
       using (ExcelEngine excelEngine = new ExcelEngine())
       {
         IApplication application = excelEngine.Excel;
 
         application.DefaultVersion = ExcelVersion.Excel2016;
-        // List<Entities.Models.Round> rounds = new List<Entities.Models.Round>();
-
 
         personRepository.Create(person);
 
@@ -52,16 +53,30 @@ namespace excelLoader
             Console.WriteLine("date is: " + actualDate.ToString());
 
             double routeLenght = (double)ws.Range["G" + (i + 1)].Value2;
+            string locationName = (string)ws.Range["H" + (i + 1)].Value2;
+
+            var location = allSavedLocations.SingleOrDefault(l => { return l.Name == locationName; });
+            //do not add location if not known
+            if (location == null && !string.IsNullOrEmpty(locationName.TrimStart().TrimEnd()))
+            {
+              location = new Location
+              {
+                Name = locationName
+              };
+              locationRepository.Create(location);
+              allSavedLocations.Add(location);
+            }
+
             var round = new Entities.Models.Round
             {
               TotalKilometers = routeLenght,
               SkiStyle = 1,
               ActionTime = actualDate,
-              Person = person
+              Person = person,
+              Location = location
             };
             roundRepository.CreateRound(round);
           }
-
         }
       }
     }
