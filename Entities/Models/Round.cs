@@ -9,24 +9,24 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Entities.Models
 {
-    public class Round
-    {
-        [Key]
-        [Column("RoundId")]
-        public Guid Id { get; set; }
+  public class Round
+  {
+    [Key]
+    [Column("RoundId")]
+    public Guid Id { get; set; }
 
-        public Person Person { get; set; }
-        [Required(ErrorMessage = "TotalKilometers required")]
-        public int TotalKilometers { get; set; }
-        public int TotalTimeInMinutes { get; set; }
-        public double Temperature { get; set; }
-        [EnumDataType(typeof(Style))]
-        [Required(ErrorMessage = "Skistyle required. Insert 0 if not known.")]
-        public int SkiStyle { get; set; }
-        public string Notes { get; set; }
-        public Location Location { get; set; }
-        public DateTime ActionTime { get; set; }
+    public Person Person { get; set; }
+    [Required(ErrorMessage = "TotalKilometers required")]
+    public double TotalKilometers { get; set; }
+    public int TotalTimeInMinutes { get; set; }
+    public double Temperature { get; set; }
+    [EnumDataType(typeof(Style))]
+    [Required(ErrorMessage = "Skistyle required. Insert 0 if not known.")]
+    public int SkiStyle { get; set; }
+    public string Notes { get; set; }
+    public Location Location { get; set; }
+    public DateTime ActionTime { get; set; }
 
-        public ICollection<PartialRound> PartialRounds { get; set; }
-    }
+    public ICollection<PartialRound> PartialRounds { get; set; }
+  }
 }

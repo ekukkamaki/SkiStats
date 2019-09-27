@@ -15,3 +15,5 @@
 /identityServer/bin
 *.csproj.user
 *.Development.json
+**/obj
+**/bin

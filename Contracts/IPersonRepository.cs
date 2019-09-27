@@ -5,9 +5,10 @@ using Entities.Models;
 
 namespace Contracts
 {
-    public interface IPersonRepository
-    {
-        void AddPerson(Person person);
-        Person GetById(Guid id);
-    }
+  public interface IPersonRepository
+  {
+    void AddPerson(Person person);
+    Person GetById(Guid id);
+    List<Person> GetAll();
+  }
 }
